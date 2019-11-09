@@ -1,4 +1,4 @@
-# Governance di applicazioni a Microservizi
+﻿# Governance di applicazioni a Microservizi
 ## Introduzione
 Non é più un mistero, lo stile architetturale a Microservizi porta inevitabilmente al proliferare di applicazioni.
 Tali applicazioni sono implementate sulla base del principio della singola responsabilità, ciascuna applicazione esegue i propri processi e comunica con altre applicazioni prediligendo l'utilizzo di protocolli leggeri.
@@ -23,3 +23,11 @@ Per gli Analisti, il vantaggio fondamentale potrebbe derivare dalla conoscenza, 
 Inoltre, l'analisi dell'impatto può migliorare in modo significativo quando agli analisti è disponibile una panoramica dei componenti e del modo in cui sono collegati tra loro. Non solo incoraggia gli analisti a identificare e informare i consumatori in merito a un servizio in evoluzione, ma può anche aiutare a evitare di introdurre cambiamenti di rottura dovuti a negligenza o ignoranza.  
   
 Proprio come i manager, gli analisti funzionali sono interessati alle funzionalità e alle versioni in arrivo in modo da definire lo stato futuro dell'ecosistema. Soprattutto quando più team stanno lavorando su funzionalità simili, può essere notoriamente difficile evitare duplicazioni e violazioni di contesti limitati. L'uso di una dashboard per definire ciò che sta per accadere, può aiutare a dare loro una visione inequivocabile del panorama attuale e futuro.  
+
+## La Dashboard
+Partiamo dallo scenario più semplice possibile, graficando le esigenze di entrambi.  
+Mettendo insieme le esigenze di Analisti e Manager potrebbe verificarsi che il minimo comun denominatore tra questi due ruoli sia rappresentabile dalle informazioni di:
+- Microservizio Chiamante
+- Microservizio Chiamato
+- Numero di chiamate
+- Tempo medio di request-response (per i colloqui sincroni)
