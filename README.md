@@ -26,6 +26,7 @@ Proprio come i manager, gli analisti funzionali sono interessati alle funzionali
 
 ## La Dashboard
 Partiamo dallo scenario più semplice possibile, graficando le esigenze di entrambi.  
+![esempio dashboard](dashboard_example_sync.PNG)
 Mettendo insieme le esigenze di Analisti e Manager potrebbe verificarsi che il minimo comun denominatore tra questi due ruoli sia rappresentabile dalle informazioni di:
 - Microservizio Chiamante
 - Microservizio Chiamato
