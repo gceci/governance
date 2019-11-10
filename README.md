@@ -25,10 +25,25 @@ Inoltre, l'analisi dell'impatto può migliorare in modo significativo quando agl
 Proprio come i manager, gli analisti funzionali sono interessati alle funzionalità e alle versioni in arrivo in modo da definire lo stato futuro dell'ecosistema. Soprattutto quando più team stanno lavorando su funzionalità simili, può essere notoriamente difficile evitare duplicazioni e violazioni di contesti limitati. L'uso di una dashboard per definire ciò che sta per accadere, può aiutare a dare loro una visione inequivocabile del panorama attuale e futuro.  
 
 ## La Dashboard
-Partiamo dallo scenario più semplice possibile, graficando le esigenze di entrambi.  
-![esempio dashboard](/img/dashboard_example_sync.PNG)  
+Partiamo dallo scenario più semplice possibile, graficando le esigenze di entrambi. 
 Mettendo insieme le esigenze di Analisti e Manager potrebbe verificarsi che il minimo comun denominatore tra questi due ruoli sia rappresentabile dalle informazioni di:
 - Microservizio Chiamante
 - Microservizio Chiamato
 - Numero di chiamate
-- Tempo medio di request-response (per i colloqui sincroni)
+- Tempo medio di request-response (per i colloqui sincroni)  
+ 
+Supponiamo di dover governare un parco applicativo composto da 3 applicazioni che comunicano tra loro utilizzando chiamate sincrone. L'app A utilizza i servizi esposti dall'app B e in alcuni casi quest'ultima applicazione utilizza i servizi dell'app C.  
+![esempio dashboard](/img/dashboard_example_sync.PNG)  
+L'esempio basilare di dashboard vede allora sui nodi le informazioni di Microservizi/applicazioni chiamenti e chiamati, mentre sugli archi le informazioni relative al numero di chiamate e tempi che le applicazioni effettuano tra loro.  
+  
+l'interrogativo fondamentale è:
+> La responsabilità del passaggio delle informazioni con cui popolare la dashboard è delle factory applicative o può essere delegata all'infrastruttura?
+  
+Una gestione puramente applicativa potrebbe lasciar spazio ad un'ampia eterogeneità di implementazioni. Ciascun team di sviluppo potrebbe scegliere (dal momento che ne ha facoltà) affidarsi alla composizione di un log più o meno completo, altri alla composizione di header http custom, altri ancora ad un misto delle due implementazioni appena enumerate e così via.  
+Per ridurre il numero di casistiche la scelta più scontata è quella di affidarsi alla composizione di un framework di sviluppo di riferimento in modo tale da indirizzare le scelte.
+Si traterebbe sempre e comunque della definizione di una linea guida e non di una soluzione implementativa univoca.  
+  
+Una gestione delegata all'infrastruttura, invece, metterebbe le carte in chiaro una volta per tutte. Sarebbe sicuramente una soluzione che limita il concetto di *Governo Distribuito*, ma parliamoci chiaro, stiamo cercando di evitare che Manager, Analisti e Architetti passino la maggior parte del loro tempo ad inseguire i team di sviluppo per comprendere e uniformare la soluzione da implementare.  
+Personalmente credo che la gestione infrastrutturale, tuttosommato, non tolga un così importante grado di libertà allo sviluppo. Certo che se si sta immaginando di rendere *trasparente* allo sviluppo una scelta del genere, lo deve essere per davvero e non può costringere i team di infrastruttura a sincronizzarsi con quelli applicativi.  
+
+
