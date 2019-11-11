@@ -47,8 +47,7 @@ Una gestione delegata all'infrastruttura, invece, metterebbe le carte in chiaro 
 Personalmente credo che la gestione infrastrutturale, tuttosommato, non tolga un così importante grado di libertà allo sviluppo. Certo che se si sta immaginando di rendere *trasparente* allo sviluppo una scelta del genere, lo deve essere per davvero e non può costringere i team di infrastruttura a sincronizzarsi con quelli applicativi.  
   
 ## Come realizzare una vista di Governo
-> Quali sono le informazioni grezze da reperire per costruire una *Vista di Governance*?
->
+> Quali sono le informazioni grezze da reperire per costruire una *Vista di Governance*?  
 > Sono sufficienti informazioni dichiarative a design-time o sono necessarie informazioni di run-time?  
 
 Proviamo a partire con la risposta alla seconda domanda. Supponiamo di aver intrapreso lo sviluppo di una applicazione che necessita di intergrarsi con 3 differenti applicazioni.
@@ -60,7 +59,7 @@ Per esclusione siamo arrivati a definire che le informazioni utili alla nostra p
 Esistono due tipologie di informazioni da poter osservare i Log e le Trace.  
   
 - **Log**: rappresentano eventi discreti. Ad esempio il debug dell'applicazione o messaggi di errore emessi durante l'esecuzione di una applicazione.
-- **Trace**: si riferiscono ad informazioni crelative ad una richiesta/chiamata, cioè un qualsiasi bit di dati o metadati che possono essere associati al ciclo di vita di un singolo oggetto transazionale nel sistema. Ad esempio il testo di una query SQL effettiva inviata a un database o l'ID di correlazione di una richiesta HTTP in entrata.  
+- **Trace**: si riferiscono ad informazioni relative ad una richiesta/chiamata, cioè un qualsiasi bit di dati o metadati che possono essere associati al ciclo di vita di un singolo oggetto transazionale nel sistema. Ad esempio il testo di una query SQL effettiva inviata a un database o l'ID di correlazione di una richiesta HTTP in entrata.  
 
 Tra le due la scelta migliore in funzione di quanto vogliamo ottenere potrebbe essere quelle delle Trace.  
 Ora che ci è più chiaro cosa intercettare come informazioni grezze e dove reperirirle, ci resta solo da definire il come.  
@@ -75,8 +74,10 @@ Aggiungendo un componente di infrastruttura (sidecar) a ciascun microservizio ap
 - iniettare il componente stesso durante la fase di deploy dell'applicazione
   
 L'ultimo punto menziona proprio una delle pratiche e metodologie che sta prendendo piede maggiormente nelle architetture a microservizi, ossia il *Service-Meshing*.  
-Con gli stessi razionali, il pattern implementativo si adatta anche a scenari asincroni, in cui due o più applicazioni si scambiano eventi.
-![](/img/sidecar_async.PNG) 
+Con gli stessi razionali, il pattern implementativo si adatta anche a scenari asincroni, in cui due o più applicazioni si scambiano eventi.  
+![](/img/sidecar_async.PNG)  
+  
+Una volta intercettate tutte le informazioni grezze di interesse (gli attributi evidenziati in precedenza all'interno delle Trace), il componente centralizzato *Collettore Metriche* le utilizzerà in elaborazioni semplici, come ad esempio raggruppamenti per applicazione, oppure somme di chiamate con stessa coppia di chiamante e chiamato, oppure ancora calcolo della durata media delle integrazioni tra applicazioni. Per i colloqui asincroni, in particolare, potrebbe non essere molto di interesse quest'ultima misurazione, piuttosto potrebbe essere derivata l'informazione di quante applicazioni sottoscrivono lo stesso evento pubblicato da una applicazione (per misurarne il riuso) o ancora più importante, derivare il registro degli eventi e l'impact analysis a fronte di una variazione all'interno del payload di uno specifico evento.
 
 ## Conclusione
 Il governo di un parco applicativo progettato secondo lo stile architetturale a Microservizi si fonda sulla possibilità di raccolta e analisi di informazioni che evidenziano sia lo stato di salute di ciascuna applicazione che le relazioni che intercorrono tra applicazioni differenti. Risulta naturale intendere che tali informazioni hanno valore solo se estrapolate dalla misurazione di quanto avviene effettivamente a run-time all'interno di ambienti produttivi. In particolare si pone l'accento sull'importanza dell'analisi delle tracciature e sulla necessaria standardizzazione della loro emissione.  
